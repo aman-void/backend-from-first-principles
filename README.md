@@ -42,37 +42,57 @@ retransmission, ordering, and flow control is the actual work.
 It is written to be **public and shareable**. Notes stand alone, terminology is
 defined on first use, and claims are cited precisely enough to verify.
 
-## Structure
+## Branches
 
-The repository is a set of numbered modules. Each module is a directory, each
-concept is a numbered note inside it, and the numbers encode learning order.
+**`main` holds root files and nothing else.** Each module lives on its own
+permanent `chapter/NN-module-name` branch, so **the notes are not on `main`.**
 
 ```text
-backend-from-first-principles/
-├── README.md              # this file — the map of the knowledge base
-├── AGENTS.md              # conventions + the contract for AI agents
-├── LICENSE                # CC BY 4.0 — prose and diagrams
-├── LICENSE-CODE           # MIT — code examples
-├── .gitignore             # excludes pdfs/, node_modules/, source material
-├── pdfs/                  # source PDFs — gitignored, never committed
-└── NN-module-name/        # a module, created on demand
-    ├── README.md          # module index: scope, reading order, status
-    ├── NN-concept.md      # one note per concept
-    ├── examples/          # runnable reference code, when warranted
-    │   ├── README.md
-    │   └── build-tcp-server/
-    │       ├── README.md
-    │       ├── tcp-server-go/main.go
-    │       └── tcp-server-typescript/main.ts
-    └── assets/            # extracted figures — only when ASCII will not do
+main                      # README.md, AGENTS.md, LICENSE, LICENSE-CODE, .gitignore
+├── chapter/01-networking # all notes and examples for module 01
+├── chapter/02-http-deep-dive
+└── chapter/NN-module-name
+```
+
+Read a module by checking out its branch:
+
+```bash
+git clone git@github.com:aman-void/backend-from-first-principles.git
+cd backend-from-first-principles
+git checkout chapter/01-networking
+```
+
+On GitHub, browse a module at
+`https://github.com/aman-void/backend-from-first-principles/tree/chapter/01-networking`.
+
+## Structure
+
+Within a chapter branch, the module is a directory, each concept is a numbered
+note inside it, and the numbers encode learning order:
+
+```text
+01-networking/
+├── README.md              # module index: scope, reading order, status
+├── 01-all-about-the-internet.md
+├── 02-how-data-transfers.md
+├── ...
+├── examples/              # runnable reference code, when warranted
+│   └── build-tcp-server/
+│       ├── README.md
+│       ├── tcp-server-go/main.go
+│       └── tcp-server-typescript/main.ts
+└── assets/                # extracted figures — only when ASCII will not do
 ```
 
 Modules are **created on demand**, when there is enough material to justify one.
 No planned or empty modules are listed here.
 
-| Module                            | Contents                                                                                     | Status      |
-| --------------------------------- | -------------------------------------------------------------------------------------------- | ----------- |
-| [01-networking](./01-networking/) | What the internet is, how data actually moves across it, and the protocols that make it work | In progress |
+**Module links below are relative, so they resolve on the chapter branch**, not
+on `main`.
+
+| Module | Branch | Contents | Status |
+|---|---|---|---|
+| 01-networking | [`chapter/01-networking`](https://github.com/aman-void/backend-from-first-principles/tree/chapter/01-networking) | What the internet is, how data actually moves across it, and the protocols that make it work | In progress |
 
 ### 01-networking
 

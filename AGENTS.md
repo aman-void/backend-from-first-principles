@@ -504,26 +504,51 @@ non-authoritative and its claim independently confirmed.
 
 ## 11. Repo roles and branching
 
-### Branching model
+### Branching model — the definitive version
 
-Root files are infrastructure and live on `main`. Each chapter (module) is
-developed on its own branch, named `chapter/NN-module-name`, created when the
-module directory is created.
+**`main` holds root infrastructure and nothing else, forever. Every module lives
+on its own permanent `chapter/NN-module-name` branch. Chapter branches are never
+merged into `main` and never deleted.**
 
 ```
-main            # README.md, AGENTS.md, LICENSE, LICENSE-CODE, .gitignore
-└── chapter/01-networking
+main                      # README.md, AGENTS.md, LICENSE, LICENSE-CODE, .gitignore
+├── chapter/01-networking # permanent. notes + examples for module 01.
+├── chapter/02-http-deep-dive
+└── chapter/NN-module-name
 ```
 
-- `main` holds root infrastructure only. A note, diagram, or example never
-  lands on `main`.
-- Chapter branches branch from `main`, not from each other, so modules stay
-  independently mergeable.
-- Never commit a chapter directly to `main`. Never force-push.
+Rules, with no exceptions:
+
+- **Never merge a chapter branch into `main`.** `main` does not accumulate
+  content.
+- **Never delete a chapter branch.** It is the permanent home of its module.
+- A chapter branch branches from `main` at the time the module is created.
+  Branches never merge with each other.
+- A note, diagram, example, or module README **never** lands on `main`. The only
+  files that may change on `main` are the five root files.
+- **Do not use `--delete-branch` when merging, and do not merge chapters at all.**
+  If a user asks you to merge a chapter into `main`, treat that as a mistake and
+  ask — it contradicts this section.
+- Root files may need updating when a new chapter appears (the root `README.md`
+  module table). That change goes on `main` **and** must be duplicated onto each
+  chapter branch, or the chapter's copy will drift.
+
+Because notes are not on `main`, **the root `README.md` must tell a reader how to
+reach them**, and every module link in it is relative and therefore only resolves
+on a chapter branch. Keep the "Branches" section at the top of the root README
+for exactly this reason.
+
+An earlier version of this file said chapter work "stays on that chapter's branch
+until the user merges it," which implied chapters eventually merged into `main` and
+directly contradicted the diagram above. That ambiguity caused a real mistake:
+PR #1 was merged into `main` with `--delete-branch`, collapsing two branches into
+one and putting module content on a branch that is supposed to hold none of it.
+The wording above replaces it. If you are ever unsure which model is in force,
+re-read this section — it is the authority.
 
 | File                  | Role                                                                              |
 | --------------------- | --------------------------------------------------------------------------------- |
-| `README.md`           | The **map** of the knowledge base. Not a textbook. Lists only modules that exist. |
+| `README.md`           | The **map** of the knowledge base. Not a textbook. Lists only modules that exist, and explains the branch model. |
 | `AGENTS.md`           | This file. Conventions and the validation contract.                               |
 | `NN-module/README.md` | Index for one module: scope, note order, prerequisites, start-here path.          |
 | `NN-concept.md`       | One concept.                                                                      |
@@ -552,30 +577,9 @@ docs(dns): explain recursive resolution
 
 Never commit secrets, credentials, API keys, private documents, or source PDFs.
 
-### Branching model
-
-The repository branches by chapter. Root files are infrastructure and live on
-`main`; each chapter (module) is developed on its own branch.
-
-```
-main                     # README.md, AGENTS.md, LICENSE, LICENSE-CODE,
-                         # .gitignore, and nothing else
-├── chapter/01-networking
-├── chapter/02-http-deep-dive
-└── chapter/NN-module-name
-```
-
-Rules:
-
-- `main` holds root-level infrastructure only. A note, diagram, or example
-  never lands on `main`.
-- Every module gets a branch named `chapter/NN-module-name`, created at the
-  moment the module directory is created.
-- Module branches branch from `main`, not from each other, so that modules stay
-  independently mergeable. If module A genuinely depends on work in module B,
-  say so explicitly rather than branching A off B.
-- Work inside a chapter stays on that chapter's branch until the user merges it.
-- Never commit directly to `main`. Never force-push a chapter branch.
+The branching model is defined **once**, in §11. Do not restate it here — two
+slightly different copies of a branching rule is how this repository ended up
+with two contradictory ones in the first place.
 
 ### Never commit or push without explicit permission
 

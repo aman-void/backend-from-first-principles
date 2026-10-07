@@ -1,0 +1,33 @@
+# Source material (PDFs, scans, book extracts) lives on disk, never in git.
+# See AGENTS.md > Sources. `pdfs/` is the working drop folder for the user.
+pdfs/
+*.pdf
+*.epub
+*.mobi
+*.djvu
+sources/
+_source/
+
+# Dependencies. The TypeScript examples declare devDependencies only for
+# typechecking (typescript + @types/node); see AGENTS.md §6.
+node_modules/
+
+# Package-manager caches and metadata that are not worth committing.
+.pnp.*
+.yarn/
+.eslintcache
+
+# Local experiment scratch space
+*.pcap
+*.pcapng
+*.cap
+/tmp/
+/scratch/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/

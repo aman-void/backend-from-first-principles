@@ -1,0 +1,14 @@
+{
+  "name": "udp-server-typescript",
+  "private": true,
+  "description": "Reference UDP echo server demonstrating no handshake, preserved message boundaries, and silent loss.",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-strip-types main.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

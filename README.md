@@ -44,17 +44,19 @@ defined on first use, and claims are cited precisely enough to verify.
 
 ## Branches
 
-**`main` holds root files and nothing else.** Each module lives on its own
-permanent `chapter/NN-module-name` branch, so **the notes are not on `main`.**
+**`main` holds everything** — root files plus every module that has been merged,
+so the whole knowledge base is browsable without switching branches. Each module
+also keeps its **own permanent branch**, which is never deleted, so work on one
+module stays isolated.
 
 ```text
-main                      # README.md, AGENTS.md, LICENSE, LICENSE-CODE, .gitignore
-├── chapter/01-networking # all notes and examples for module 01
-├── chapter/02-http-deep-dive
+main                            # root files + ALL merged module content
+├── chapter/01-networking       # permanent. module 01's branch.
+├── chapter/02-http-deep-dive   # permanent.
 └── chapter/NN-module-name
 ```
 
-Read a module by checking out its branch:
+To read or work on one module in isolation:
 
 ```bash
 git clone git@github.com:aman-void/backend-from-first-principles.git
@@ -62,13 +64,16 @@ cd backend-from-first-principles
 git checkout chapter/01-networking
 ```
 
-On GitHub, browse a module at
+On GitHub, a module's branch is at
 `https://github.com/aman-void/backend-from-first-principles/tree/chapter/01-networking`.
+
+A module reaches `main` through its branch's pull request. The branch stays
+afterwards.
 
 ## Structure
 
-Within a chapter branch, the module is a directory, each concept is a numbered
-note inside it, and the numbers encode learning order:
+Each module is a directory, each concept is a numbered note inside it, and the
+numbers encode learning order:
 
 ```text
 01-networking/
@@ -87,12 +92,9 @@ note inside it, and the numbers encode learning order:
 Modules are **created on demand**, when there is enough material to justify one.
 No planned or empty modules are listed here.
 
-**Module links below are relative, so they resolve on the chapter branch**, not
-on `main`.
-
 | Module | Branch | Contents | Status |
 |---|---|---|---|
-| 01-networking | [`chapter/01-networking`](https://github.com/aman-void/backend-from-first-principles/tree/chapter/01-networking) | What the internet is, how data actually moves across it, and the protocols that make it work | In progress |
+| [01-networking](./01-networking/) | [`chapter/01-networking`](https://github.com/aman-void/backend-from-first-principles/tree/chapter/01-networking) | What the internet is, how data actually moves across it, and the protocols that make it work | In progress |
 
 ### 01-networking
 

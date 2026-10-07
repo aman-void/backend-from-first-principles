@@ -506,45 +506,42 @@ non-authoritative and its claim independently confirmed.
 
 ### Branching model — the definitive version
 
-**`main` holds root infrastructure and nothing else, forever. Every module lives
-on its own permanent `chapter/NN-module-name` branch. Chapter branches are never
-merged into `main` and never deleted.**
+`main` is the browsable trunk and holds **everything**: root files plus every
+module that has been merged. Each module also keeps its **own permanent branch**,
+which is never deleted, so per-module work and history stay isolated.
 
 ```
-main                      # README.md, AGENTS.md, LICENSE, LICENSE-CODE, .gitignore
-├── chapter/01-networking # permanent. notes + examples for module 01.
-├── chapter/02-http-deep-dive
+main                            # root files + ALL merged module content
+├── chapter/01-networking       # permanent, never deleted. module 01's branch.
+├── chapter/02-http-deep-dive   # permanent, never deleted.
 └── chapter/NN-module-name
 ```
 
-Rules, with no exceptions:
+Rules:
 
-- **Never merge a chapter branch into `main`.** `main` does not accumulate
-  content.
-- **Never delete a chapter branch.** It is the permanent home of its module.
-- A chapter branch branches from `main` at the time the module is created.
-  Branches never merge with each other.
-- A note, diagram, example, or module README **never** lands on `main`. The only
-  files that may change on `main` are the five root files.
-- **Do not use `--delete-branch` when merging, and do not merge chapters at all.**
-  If a user asks you to merge a chapter into `main`, treat that as a mistake and
-  ask — it contradicts this section.
-- Root files may need updating when a new chapter appears (the root `README.md`
-  module table). That change goes on `main` **and** must be duplicated onto each
-  chapter branch, or the chapter's copy will drift.
+- **Chapter branches merge into `main`.** That is how `main` accumulates content
+  and stays browsable. Merge via PR so the diff is reviewable.
+- **Never delete a chapter branch.** `--delete-branch` is forbidden. A chapter
+  branch outlives its merge and stays as the permanent per-module branch.
+- A chapter branch is created when the module directory is created, branching from
+  `main`. Chapter branches never merge with each other.
+- Never commit a chapter directly to `main`. Module content reaches `main` only
+  through its chapter branch's PR.
+- Never force-push a chapter branch.
+- When a module changes, work happens on **its** branch, then merges to `main`.
+  Other modules are untouched by that PR.
+- Root files are edited on `main`; if a root-file change must also appear on a
+  chapter branch, merge `main` forward into that branch rather than cherry-picking.
 
-Because notes are not on `main`, **the root `README.md` must tell a reader how to
-reach them**, and every module link in it is relative and therefore only resolves
-on a chapter branch. Keep the "Branches" section at the top of the root README
-for exactly this reason.
+**Why this model:** `main` must be browsable — a reader landing on the repo should
+find the whole knowledge base without switching branches. Chapter branches exist
+so that work on one module stays isolated and its history is preserved per module.
 
-An earlier version of this file said chapter work "stays on that chapter's branch
-until the user merges it," which implied chapters eventually merged into `main` and
-directly contradicted the diagram above. That ambiguity caused a real mistake:
-PR #1 was merged into `main` with `--delete-branch`, collapsing two branches into
-one and putting module content on a branch that is supposed to hold none of it.
-The wording above replaces it. If you are ever unsure which model is in force,
-re-read this section — it is the authority.
+Two mistakes are recorded here so they are not repeated. First, merging a chapter
+with `--delete-branch` destroyed the chapter branch, which this model forbids.
+Second, an earlier version of this file appeared **twice** in slightly different
+forms, one implying chapters merge and one implying they never do; that ambiguity
+is why the wording above replaces both and §12 no longer restates it.
 
 | File                  | Role                                                                              |
 | --------------------- | --------------------------------------------------------------------------------- |

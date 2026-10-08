@@ -1,0 +1,14 @@
+{
+  "name": "tcp-server-typescript",
+  "private": true,
+  "description": "Reference TCP echo server demonstrating that the handshake is kernel work and TCP is a byte stream.",
+  "type": "module",
+  "scripts": {
+    "start": "node --experimental-strip-types main.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}
